@@ -1,0 +1,257 @@
+@import "./bootstrap.scss";
+
+/**
+LAYOUT VALUES
+**/
+:root {
+  --k-navbar-width: 225px;
+  --k-navbar-width-neg: -225px;
+  --k-navbar-width-sm: 50px;
+
+  --k-content-left: 0;
+  --k-content-top: 0;
+
+  --k-list-width: 22rem;
+  --k-card-radius: 6px;
+  --k-toolbar-height: 52px;
+  --k-layout-padding: 4px;
+  --k-form-el-margin: 0.8rem;
+
+  --k-index-popover: 10700;
+
+  /* Controls that appear on hover share one timing: a short beat so a passing pointer does not flicker
+     them, then a quick fade */
+  --k-hover-reveal-delay: 60ms;
+  --k-hover-reveal-duration: 120ms;
+
+  /* Layout that moves (a panel opening, a column giving way) shares one curve and one beat, so parts
+     that move together arrive together; what leaves ahead of a move takes the short one */
+  --k-layout-ease: cubic-bezier(0.3, 0, 0.2, 1);
+  --k-layout-duration: 140ms;
+  --k-layout-duration-short: 80ms;
+}
+
+@function tint($color, $percentage) {
+  @return mix(white, $color, $percentage);
+}
+
+@function shade($color, $percentage) {
+  @return mix(#1e1e1e, $color, $percentage);
+}
+
+/**
+COLOURS (light mode)
+**/
+:root,
+:root.light {
+  --k-color-scheme: light;
+  --k-background: #fff;
+  --k-background-translucent: #ffffffcc;
+  --k-background-translucent-10: #ffffffe3;
+  --k-background-translucent-25: #ffffffc3;
+  --k-background-translucent-50: #ffffff88;
+  --k-background-translucent-100: #ffffff00;
+  --k-color: #212529;
+  --k-border: #dee2e4;
+  --k-border-light: #f4f4f4;
+  /* A step quieter than --k-color-secondary, for counts and other text that should recede */
+  --k-color-faint: #a3aaae;
+  /* Separators inside a dense pane, where --k-border would draw too much attention */
+  --k-hairline: rgba(16, 24, 40, 0.07);
+  --k-hairline-soft: rgba(16, 24, 40, 0.05);
+  /* The inset info panel's tint */
+  --k-panel-background: #f6f7f9;
+  --k-card-background: #fff;
+  --k-card-border: rgba(16, 24, 40, 0.07);
+  --k-card-shadow: 0 1px 2px rgba(16, 24, 40, 0.05);
+  --k-background-widget: #f9f9f9;
+  --k-background-widget-hover: #f3f3f3;
+  --k-border-widget: #ececec;
+  --k-border-widget-light: #f8f8f8;
+
+  --k-secondary-translucent-25: #f9f9f9d3;
+
+  --k-input-background: #{$gray-100};
+  --k-input-disabled-background: #{$gray-300};
+  --k-input-disabled-border: #{$gray-300};
+  --k-input-shadow: #{rgba($primary, 0.25)};
+
+  --k-navbar-background: #e9ebed;
+  --k-navbar-border: #dee2e4;
+  --k-navbar-box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2);
+
+  --k-navbar-item-color: #112b42;
+  --k-navbar-item-hover-background: #{rgba($gray-700, 0.05)};
+  --k-navbar-item-pressed-background: #{rgba($gray-700, 0.1)};
+  --k-navbar-subitem-color: #112b42aa;
+  --k-navbar-item-active-color: #{shade($primary, 10%)};
+  --k-navbar-item-active-background: #{rgba($gray-700, 0.065)};
+  --k-navbar-item-active-box-shadow: 0 1px 0px 0px rgba(0, 0, 0, 0.06);
+
+  --k-dropdown-background: #fff;
+  --k-dropdown-border-color: transparent;
+  --k-dropdown-divider-color: #bebebe;
+  --k-dropdown-item-active-background: #{tint($primary, 90%)};
+  --k-dropdown-item-active-color: #{$primary};
+  --k-dropdown-shadow: 0 1px 3px 0px rgba(0, 0, 0, 0.3);
+
+  --k-timeline-active-background: #{rgba(tint($primary, 75%), 0.5)};
+
+  --k-modal-background: #fff;
+  --k-modal-divider-color: #dee2e4;
+
+  --k-placeholder-color: #{$gray-600};
+
+  --k-table-group-background: #{rgba($gray-100, 0.9)};
+
+  @each $name, $color in $colors {
+    --k-color-#{$name}: #{$color};
+    --k-color-d-05-#{$name}: #{shade($color, 10%)};
+    --k-color-d-10-#{$name}: #{shade($color, 25%)};
+    --k-color-d-15-#{$name}: #{shade($color, 55%)};
+    --k-color-l-05-#{$name}: #{tint($color, 10%)};
+    --k-color-l-10-#{$name}: #{tint($color, 25%)};
+    --k-color-l-15-#{$name}: #{tint($color, 50%)};
+    --k-color-l-20-#{$name}: #{tint(lighten($color, 15%), 75%)};
+    --k-color-t-10-#{$name}: #{mix($color, transparent, 10%)};
+    --k-color-t-25-#{$name}: #{mix($color, transparent, 25%)};
+    --k-color-t-50-#{$name}: #{mix($color, transparent, 50%)};
+    --k-color-t-75-#{$name}: #{mix($color, transparent, 75%)};
+  }
+
+  @each $name, $color in $theme-colors {
+    --k-color-#{$name}: #{$color};
+    --k-color-d-05-#{$name}: #{shade($color, 10%)};
+    --k-color-d-10-#{$name}: #{shade($color, 25%)};
+    --k-color-d-15-#{$name}: #{shade($color, 55%)};
+    --k-color-l-05-#{$name}: #{tint($color, 10%)};
+    --k-color-l-10-#{$name}: #{tint($color, 25%)};
+    --k-color-l-15-#{$name}: #{tint($color, 50%)};
+    --k-color-l-20-#{$name}: #{tint($color, 85%)};
+    --k-color-t-10-#{$name}: #{mix($color, transparent, 10%)};
+    --k-color-t-25-#{$name}: #{mix($color, transparent, 25%)};
+    --k-color-t-50-#{$name}: #{mix($color, transparent, 50%)};
+    --k-color-t-75-#{$name}: #{mix($color, transparent, 75%)};
+  }
+
+  --k-color-link: #{$primary};
+  /* Red text on a secondary button, deep enough to read on its light ground */
+  --k-negative-action-color: var(--k-color-d-10-red);
+  --k-color-link-hover: #{darken($primary, 10%)};
+
+  --k-color-secondary: #{$gray-600};
+  --k-label-color: #{darken($gray-600, 15%)};
+  --k-form-select-indicator: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23212529' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+  --k-modal-close-btn: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23212529'><path d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/></svg>");
+
+  --k-focus-outline: 2px auto var(--k-color-l-15-primary);
+  --k-focus-outline-offset: 4px;
+
+  --k-overflow-border: none;
+  --k-overflow-shadow-color: #00000016;
+  --k-map-background-color: #fff;
+  --k-pipeline-background: #{$gray-100};
+}
+
+/**
+COLOURS (dark mode)
+**/
+/* One neutral ramp for every dark surface, so the sidebar, menus, panels and the page read as
+   shades of the same grey rather than a mix of warm and blue-tinted ones */
+$dark-0: #161616; // sidebar, maps, pipelines: the deepest surface
+$dark-1: #1e1e1e; // the page
+$dark-2: #232323; // panels
+$dark-3: #2a2a2a; // cards, menus
+$dark-4: #303030; // widgets, light borders
+$dark-5: #3a3a3a; // inputs, borders
+$dark-6: #454545; // dividers, "light" controls
+
+@mixin dark-mode-vars {
+  --k-color-scheme: dark;
+  --k-background: #1e1e1e;
+  --k-background-translucent: #1e1e1ecc;
+  --k-background-translucent-10: #1e1e1ee3;
+  --k-background-translucent-25: #1e1e1ec3;
+  --k-background-translucent-50: #1e1e1e88;
+  --k-background-translucent-100: #1e1e1e00;
+  --k-color: #fff;
+  --k-border: #{$dark-5};
+  --k-border-light: #{$dark-4};
+  /* A shadow barely reads on dark, so the hairline stands in for it */
+  --k-color-faint: #7d7d7d;
+  --k-hairline: rgba(255, 255, 255, 0.08);
+  --k-hairline-soft: rgba(255, 255, 255, 0.06);
+  --k-panel-background: #{$dark-2};
+  --k-card-background: #{$dark-3};
+  --k-card-border: rgba(255, 255, 255, 0.08);
+  --k-card-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --k-background-widget: #{$dark-4};
+  --k-background-widget-hover: #{$dark-1};
+  --k-border-widget: #{$dark-5};
+  --k-border-widget-light: #{$dark-4};
+
+  --k-secondary-translucent-25: #{rgba($dark-5, 0.76)};
+
+  --k-input-background: #{$dark-5};
+  --k-input-disabled-background: #{rgba($dark-5, 0)};
+  --k-input-disabled-border: #{$dark-5};
+
+  --k-navbar-background: #{$dark-0};
+  --k-navbar-border: #000;
+
+  --k-navbar-item-color: #eeeeee;
+  --k-navbar-item-hover-background: rgba(255, 255, 255, 0.05);
+  --k-navbar-item-pressed-background: rgba(255, 255, 255, 0.1);
+  --k-navbar-subitem-color: #eeeeeeaa;
+  --k-navbar-item-active-color: #eeeeee;
+  --k-navbar-item-active-background: rgba(255, 255, 255, 0.08);
+
+  --k-dropdown-background: #{$dark-3};
+  --k-dropdown-border-color: rgba(255, 255, 255, 0.1);
+  --k-dropdown-divider-color: #{$dark-6};
+  --k-dropdown-item-active-background: #{shade($primary, 70%)};
+  --k-dropdown-item-active-color: #eeeeee;
+  --k-dropdown-shadow: 0 1px 4px 0px rgba(0, 0, 0, 0.8);
+
+  --k-timeline-active-background: #{rgba(shade($primary, 45%), 0.5)};
+
+  --k-modal-background: var(--k-background);
+  --k-modal-divider-color: #{$dark-5};
+
+  --k-color-light: #{$dark-6};
+  --k-color-l-05-light: #{darken($dark-6, 5%)};
+  --k-color-l-10-light: #{darken($dark-6, 7.5%)};
+  --k-color-l-15-light: #{darken($dark-6, 10%)};
+  --k-color-d-05-light: #{lighten($dark-6, 5%)};
+  --k-color-d-10-light: #{lighten($dark-6, 7.5%)};
+  --k-color-d-15-light: #{lighten($dark-6, 10%)};
+
+  --k-color-link: #50a7ff;
+  /* On the dark secondary ground the red has to lift rather than deepen to keep its contrast */
+  --k-negative-action-color: var(--k-color-l-15-red);
+  --k-color-link-hover: #{lighten(#50a7ff, 20%)};
+
+  --k-color-secondary: #b3b3b3;
+  --k-label-color: #{lighten(#b3b3b3, 15%)};
+  --k-form-select-indicator: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+  --k-modal-close-btn: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ffffff'><path d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/></svg>");
+
+  --k-focus-outline: 2px auto var(--k-color-d-15-primary);
+
+  --k-overflow-border: 1px solid rgba(0, 0, 0, 0.4);
+  --k-overflow-shadow-color: #0000005a;
+  --k-map-background-color: #{$dark-0};
+  --k-pipeline-background: #{$dark-0};
+
+  --k-table-group-background: #{rgba($dark-0, 0.9)};
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    @include dark-mode-vars;
+  }
+}
+
+:root.dark {
+  @include dark-mode-vars;
+}

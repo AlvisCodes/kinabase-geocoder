@@ -1,0 +1,141 @@
+html,
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--k-background);
+  color: var(--k-color);
+  height: 100%;
+  transition:
+    background-color 0.05s ease-in-out,
+    color 0.05s ease-in-out;
+  overscroll-behavior-x: contain;
+  color-scheme: var(--k-color-scheme);
+}
+
+#content {
+  left: var(--k-content-left);
+  top: var(--k-content-top);
+  right: 0;
+  bottom: 0;
+  position: fixed;
+  overflow-x: hidden;
+  overflow-y: auto;
+  touch-action: pan-x pan-y;
+  overscroll-behavior-x: contain;
+  padding: 0;
+  transition:
+    width 0.15s ease-in-out,
+    left 0.15s ease-in-out;
+}
+
+.d-light,
+:root.light .d-light {
+  display: block;
+}
+
+.d-dark,
+:root.light .d-dark {
+  display: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  .d-light {
+    display: none;
+  }
+
+  .d-dark {
+    display: block;
+  }
+}
+
+:root.dark .d-light {
+  display: none;
+}
+
+:root.dark .d-dark {
+  display: block;
+}
+
+.user-selectable {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+a,
+.btn-link {
+  text-underline-offset: 3px;
+  color: var(--k-color-link);
+}
+a:hover,
+.btn-link:hover {
+  color: var(--k-color-link-hover);
+}
+
+.w-14,
+.form-control-container.w-14 {
+  width: 14%;
+}
+
+.w-17,
+.form-control-container.w-17 {
+  width: 16.667%;
+}
+
+.w-20,
+.form-control-container.w-20 {
+  width: 20%;
+}
+
+.w-33,
+.form-control-container.w-33 {
+  width: 33.333%;
+}
+
+hr {
+  opacity: 1;
+  color: var(--k-modal-divider-color);
+  background-color: var(--k-color-secondary);
+}
+
+.text-mono {
+  font-family:
+    ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono", "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro", "Fira Mono",
+    "Droid Sans Mono", "Courier New", monospace;
+}
+
+.text-description {
+  font-size: 0.85em;
+  color: var(--k-color-secondary);
+  margin: 0;
+}
+
+@keyframes nudge-shake {
+  0%,
+  100% {
+    transform: translateX(0) translateY(0);
+  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateX(-4px);
+  }
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(4px);
+  }
+}
+
+body.nudge-shake {
+  animation: nudge-shake 0.5s ease-in-out;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  body.nudge-shake {
+    animation: none !important;
+  }
+}

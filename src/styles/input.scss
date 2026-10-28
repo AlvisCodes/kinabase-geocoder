@@ -1,0 +1,117 @@
+.form-control-sm,
+.form-select-sm {
+  min-height: 30px;
+  line-height: 22px;
+}
+
+// Sticky (joined) borders merge a divided control's parts into one unit. Dense (sm) controls always join.
+// The bare .form-control/.form-select classes are present at EVERY size, so scoping to them would join every
+// sticky control (defeating a plain "normal borders" default-size input); instead a control opts in with
+// .sticky-default-size on its wrapper to also join at default size - e.g. the divided record-preview picker,
+// which must read as one joined unit in a standard form.
+.form-control-sm,
+.form-select-sm,
+.sticky-default-size .form-control,
+.sticky-default-size .form-select {
+  &.sticky-right {
+    border-radius: var(--bs-border-radius-sm) 0 0 var(--bs-border-radius-sm);
+    border-right: 1px solid var(--k-color-l-15-secondary);
+  }
+  &.sticky-left {
+    border-radius: 0 var(--bs-border-radius-sm) var(--bs-border-radius-sm) 0;
+  }
+  &.sticky-both {
+    border-radius: 0;
+    border-right: 1px solid var(--k-color-l-15-secondary);
+  }
+}
+
+.form-select {
+  -webkit-appearance: none;
+  appearance: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.form-select.disabled {
+  background-color: var(--k-input-disabled-background);
+}
+
+.form-select-placeholder {
+  color: var(--k-placeholder-color);
+  line-height: 1.1;
+  left: 0.55rem;
+  right: 2rem;
+  padding: 0.5rem 0;
+  position: absolute;
+  font-size: 0.8rem;
+  pointer-events: none;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.select-input-wrapper {
+  position: relative;
+  min-width: 0;
+}
+
+::placeholder {
+  color: var(--k-placeholder-color);
+}
+
+/* The form-control-container class inserts proper spacing around fields within a form. */
+/* It SHOULD be applied to fields and CAN be applied to containers of fields. */
+.form-control-container {
+  display: block;
+  width: 100%;
+}
+
+.form-control-container + .form-control-container {
+  margin-top: var(--k-form-el-margin);
+}
+
+/* The form-control-col class formats inline fields correctly. It should be applied to all the inline fields in addition to the form-control-container class */
+.form-control-col {
+  margin-right: var(--k-form-el-margin);
+  margin-top: 0 !important;
+}
+
+.form-control-col:last-child {
+  margin-right: 0;
+}
+
+.form-control:focus,
+.form-control.focus,
+.form-select:focus,
+.form-select.focus {
+  color: var(--k-color);
+  background-color: var(--k-input-background);
+  border-color: var(--k-color-primary);
+  outline: 0;
+  box-shadow: 0 0 0 0.15rem var(--k-input-shadow);
+}
+
+option:disabled {
+  color: var(--k-placeholder-color);
+}
+
+.form-check-input {
+  background-color: var(--k-input-background);
+  border-color: var(--k-color-secondary);
+}
+
+.form-check-input:checked {
+  background-color: var(--k-color-primary);
+  border-color: var(--k-color-primary);
+}
+
+.border-top-dashed {
+  border-top: 1px dashed var(--k-border);
+}
+
+.border-bottom-dashed {
+  border-bottom: 1px dashed var(--k-border);
+}

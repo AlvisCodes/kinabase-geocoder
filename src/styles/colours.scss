@@ -1,0 +1,203 @@
+// scss-docs-start color-variables
+$blue: #4e83c4 !default;
+$indigo: #8d61d3 !default;
+$purple: #8372c1 !default;
+$pink: #ca50a5 !default;
+$red: #dd4864 !default;
+$orange: #f28f5e !default;
+$yellow: #fcba63 !default;
+$light-green: #7cc394 !default;
+$green: #14a193 !default;
+$teal: #2a99b7 !default;
+$cyan: #5aafce !default;
+// scss-docs-end color-variables
+
+$variants:
+  "blue" var(--k-color-blue),
+  "indigo" var(--k-color-indigo),
+  "purple" var(--k-color-purple),
+  "pink" var(--k-color-pink),
+  "red" var(--k-color-red),
+  "orange" var(--k-color-orange),
+  "yellow" var(--k-color-yellow),
+  "light-green" var(--k-color-light-green),
+  "green" var(--k-color-green),
+  "teal" var(--k-color-teal),
+  "cyan" var(--k-color-cyan),
+  "gray" var(--k-color-gray);
+
+:root,
+:root.light {
+  @each $name, $color in $variants {
+    .text-#{$name} {
+      color: var(--k-color-d-10-#{$name});
+    }
+    .text-d-10-#{$name} {
+      color: var(--k-color-d-10-#{$name});
+    }
+    .text-d-15-#{$name} {
+      color: var(--k-color-d-15-#{$name});
+    }
+    .text-d-20-#{$name} {
+      color: var(--k-color-d-20-#{$name});
+    }
+    i.text-#{$name} {
+      color: var(--k-color-d-05-#{$name});
+    }
+    .bg-d-10-#{$name} {
+      background: var(--k-color-d-05-#{$name});
+    }
+    .bg-#{$name} {
+      background: var(--k-color-l-05-#{$name});
+    }
+    .bg-l-15-#{$name} {
+      background: var(--k-color-l-15-#{$name});
+    }
+    .bg-l-20-#{$name} {
+      background: var(--k-color-l-20-#{$name});
+    }
+    .text-#{$name}-active {
+      color: var(--k-color-l-10-#{$name});
+    }
+  }
+
+  .text-warning {
+    color: var(--k-color-orange) !important;
+  }
+}
+
+@mixin dark-mode-vars {
+  @each $name, $color in $variants {
+    .text-#{$name} {
+      color: var(--k-color-l-10-#{$name});
+    }
+    .text-d-10-#{$name} {
+      color: var(--k-color-l-15-#{$name});
+    }
+    .text-d-15-#{$name} {
+      color: var(--k-color-l-20-#{$name});
+    }
+    .text-d-20-#{$name} {
+      color: var(--k-color-d-20-#{$name});
+    }
+    i.text-#{$name} {
+      color: var(--k-color-#{$name});
+    }
+    .bg-d-10-#{$name} {
+      background: var(--k-color-d-10-#{$name});
+    }
+    .bg-#{$name} {
+      background: var(--k-color-d-10-#{$name});
+    }
+    .bg-l-15-#{$name} {
+      background: var(--k-color-d-15-#{$name});
+    }
+    .bg-l-20-#{$name} {
+      background: var(--k-color-d-15-#{$name});
+    }
+    .text-#{$name}-active {
+      color: var(--k-color-l-10-#{$name});
+    }
+  }
+
+  .text-muted,
+  .text-secondary {
+    color: var(--k-color-secondary) !important;
+  }
+
+  /* Rich text colours were chosen against a light page (see richTextReadableColours.ts): dark text is lifted to a
+     readable lightness keeping its hue, and highlighted text flips to black or white by the highlight's lightness */
+  .k-rich-text-colour {
+    color: oklch(from var(--k-rich-text-colour) max(l, 0.78) c h);
+  }
+  .k-rich-text-highlight {
+    color: oklch(from var(--k-rich-text-highlight) clamp(0, calc((0.62 - l) * 1000), 1) 0 h);
+  }
+  /* A coloured word on a highlight sits on the light background it was chosen for */
+  .k-rich-text-colour.k-rich-text-highlight {
+    color: var(--k-rich-text-colour);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    @include dark-mode-vars;
+  }
+}
+
+:root.dark {
+  @include dark-mode-vars;
+}
+
+.bg-light {
+  background-color: var(--k-color-light);
+}
+
+// Map of all color scales
+$color-scales: (
+  "blue": $blue,
+  "indigo": $indigo,
+  "purple": $purple,
+  "pink": $pink,
+  "red": $red,
+  "orange": $orange,
+  "yellow": $yellow,
+  "light-green": $light-green,
+  "green": $green,
+  "teal": $teal,
+  "cyan": $cyan,
+  "gray": #7d7d7d
+);
+
+// Function to generate tints and shades
+@function tint-color($color, $percentage) {
+  @return mix(#fff, $color, $percentage);
+}
+
+@function shade-color($color, $percentage) {
+  @return mix(#000, $color, $percentage);
+}
+
+// Loop through each color scale
+@each $color-name, $base-color in $color-scales {
+  // Create a variable for each tint and shade based on the base color
+  $tints-and-shades: (
+    "50": tint-color($base-color, 90%),
+    "100": tint-color($base-color, 80%),
+    "150": tint-color($base-color, 75%),
+    "200": tint-color($base-color, 60%),
+    "300": tint-color($base-color, 40%),
+    "400": tint-color($base-color, 20%),
+    "500": $base-color,
+    "550": shade-color($base-color, 10%),
+    "600": shade-color($base-color, 20%),
+    "700": shade-color($base-color, 40%),
+    "800": shade-color($base-color, 60%),
+    "900": shade-color($base-color, 80%)
+  );
+
+  // Generate classes for each tint and shade
+  @each $level, $color in $tints-and-shades {
+    :root {
+      --k-color-#{$color-name}-#{$level}: #{$color};
+      --k-color-#{$color-name}-#{$level}-o-10: #{rgba($color, 0.1)};
+      --k-color-#{$color-name}-#{$level}-o-20: #{rgba($color, 0.2)};
+      --k-color-#{$color-name}-#{$level}-o-30: #{rgba($color, 0.3)};
+      --k-color-#{$color-name}-#{$level}-o-50: #{rgba($color, 0.5)};
+    }
+
+    .bg-#{$color-name}-#{$level} {
+      background-color: $color;
+    }
+
+    :root.dark {
+      .dark-bg-#{$color-name}-#{$level} {
+        background-color: $color;
+      }
+    }
+  }
+}
+
+.bg-light {
+  background-color: var(--k-color-light) !important;
+}

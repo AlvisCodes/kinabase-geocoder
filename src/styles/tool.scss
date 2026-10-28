@@ -1,0 +1,23 @@
+/* Page chrome for the tool itself; everything else comes from the copied Kinabase stylesheets */
+#content {
+  position: fixed;
+  inset: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+#app {
+  height: 100%;
+}
+
+body {
+  font-size: 0.85rem;
+}
+
+.form-check-input {
+  cursor: pointer;
+}
+
+.form-switch .form-check-input {
+  width: 2em;
+}

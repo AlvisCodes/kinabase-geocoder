@@ -1,0 +1,10 @@
+.js-focus-visible :focus:not(.focus-visible) {
+  outline: none;
+}
+
+.js-focus-visible .focus-visible,
+:focus-visible {
+  outline: var(--k-focus-outline);
+  outline-offset: var(--k-focus-outline-offset);
+  transition: outline-offset 0.05s ease-out;
+}

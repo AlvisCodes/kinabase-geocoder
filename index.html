@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Inline so the single-file build has no outside references at all -->
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%234e83c4'/%3E%3Cpath d='M16 6a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z' fill='%23fff'/%3E%3C/svg%3E" />
+    <title>Address Geocoder</title>
+    <script>
+      // Apply the saved theme before first paint so the page never flashes the wrong scheme
+      (function () {
+        try {
+          var theme = localStorage.getItem("geocoder:theme");
+          if (theme === "dark" || theme === "light") document.documentElement.classList.add(theme);
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

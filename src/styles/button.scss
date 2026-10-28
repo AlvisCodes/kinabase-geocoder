@@ -1,0 +1,352 @@
+button:focus,
+:focus {
+  outline: -webkit-focus-ring-color none 0px;
+  outline: none;
+  box-shadow: none;
+}
+
+.btn {
+  transition: 0.05s ease-in-out all;
+  /* avoids jumpiness if buttons have changing numbers */
+  font-variant-numeric: tabular-nums;
+}
+
+.btn-check:focus + .btn,
+.btn:focus,
+.btn-close:focus {
+  outline: 0;
+  box-shadow: none;
+}
+
+button:not(:disabled),
+[type="button"]:not(:disabled),
+[type="reset"]:not(:disabled),
+[type="submit"]:not(:disabled) {
+  cursor: default;
+}
+
+.btn i {
+  pointer-events: none;
+}
+
+.btn.disabled,
+.btn:disabled {
+  color: var(--k-color);
+}
+
+/* Keep variants on their resting state when noHover is enabled. */
+.btn.btn-no-hover {
+  --bs-btn-hover-color: var(--bs-btn-color);
+  --bs-btn-hover-bg: var(--bs-btn-bg);
+  --bs-btn-hover-border-color: var(--bs-btn-border-color);
+  --bs-btn-active-color: var(--bs-btn-color);
+  --bs-btn-active-bg: var(--bs-btn-bg);
+  --bs-btn-active-border-color: var(--bs-btn-border-color);
+  --bs-btn-active-shadow: none;
+}
+
+@mixin no-hover-darkening {
+  &.btn-no-hover:hover,
+  &.btn-no-hover:focus,
+  &.btn-no-hover.show,
+  &.btn-no-hover:not(:disabled):not(.disabled):active,
+  &.btn-no-hover.active {
+    filter: none !important;
+  }
+}
+
+@mixin no-hover-state($background: null, $border-color: null, $color: null) {
+  &.btn-no-hover:hover,
+  &.btn-no-hover:focus,
+  &.btn-no-hover.show,
+  &.btn-no-hover:not(:disabled):not(.disabled):active,
+  &.btn-no-hover.active {
+    @if $background != null {
+      background: $background;
+    }
+    @if $border-color != null {
+      border-color: $border-color;
+    }
+    @if $color != null {
+      color: $color;
+    }
+  }
+}
+
+.btn-2xs {
+  line-height: 1;
+  border-radius: 0.25rem;
+}
+
+.btn-xs {
+  height: 25px;
+  line-height: 1.1;
+  border-radius: 0.3rem;
+}
+
+.btn-sm {
+  height: 30px;
+  line-height: 1.1;
+}
+
+.btn-sm i {
+  font-size: 1.1em;
+}
+
+// Text classes
+.btn-text {
+  font-size: 0.8rem;
+  line-height: inherit;
+}
+
+.btn-text-xs {
+  font-size: 0.75rem;
+  line-height: 1.2;
+}
+
+.btn-text-2xs {
+  font-size: 0.7rem;
+  line-height: 1.2;
+}
+
+$variants:
+  "primary" var(--k-color-primary),
+  "danger" var(--k-color-danger),
+  "warning" var(--k-color-warning),
+  "success" var(--k-color-success),
+  "info" var(--k-color-info);
+
+@each $name, $color in $variants {
+  .btn-#{$name} {
+    background: var(--k-color-#{$name}) linear-gradient(180deg, var(--k-color-l-05-#{$name}), var(--k-color-d-05-#{$name})) repeat-x;
+    border-color: transparent;
+    border-width: 0;
+    @include no-hover-darkening;
+  }
+
+  .btn-#{$name}:hover,
+  .btn-#{$name}:focus {
+    filter: brightness(0.92);
+    border-color: transparent;
+    border-width: 0;
+  }
+
+  .btn-#{$name}:not(:disabled):not(.disabled):active,
+  .btn-#{$name}:not(:disabled):not(.disabled).active {
+    filter: brightness(0.84);
+    border-color: transparent;
+    border-width: 0;
+    box-shadow: none;
+  }
+}
+
+.btn-transparent,
+.btn-transparent-primary {
+  color: var(--k-color-secondary);
+}
+
+.btn-transparent-light {
+  color: white !important;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  font-weight: 500;
+  border-width: 1px;
+  transition: 0.1s ease-in-out all;
+  @include no-hover-state(rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.3), white);
+}
+
+.btn-dashed {
+  border: 1px dashed var(--k-border);
+  color: var(--k-color-secondary);
+  @include no-hover-state(transparent, var(--k-border), var(--k-color-secondary));
+}
+
+.btn-dashed:hover {
+  border: 1px dashed var(--k-border);
+  color: var(--k-color-secondary);
+}
+
+.btn-dashed:disabled,
+.btn-transparent:disabled,
+.btn-transparent-light:disabled {
+  color: var(--k-color-secondary);
+  opacity: 0.25;
+}
+
+@each $name, $color in $variants {
+  .btn-dashed-#{$name} {
+    border: 1px dashed var(--k-color-#{$name});
+    color: var(--k-color-#{$name});
+    background: transparent;
+    @include no-hover-darkening;
+    @include no-hover-state(transparent, var(--k-color-#{$name}), var(--k-color-#{$name}));
+  }
+
+  .btn-dashed-#{$name}:hover,
+  .btn-dashed-#{$name}:focus {
+    filter: brightness(0.82);
+    color: var(--k-color-#{$name});
+    border-color: var(--k-color-#{$name});
+    background: var(--k-navbar-item-pressed-background);
+  }
+
+  .btn-dashed-#{$name}:not(:disabled):not(.disabled):active,
+  .btn-dashed-#{$name}:not(:disabled):not(.disabled).active {
+    color: var(--k-color-#{$name});
+    border-color: var(--k-color-#{$name});
+    background: var(--k-navbar-item-pressed-background);
+  }
+
+  .btn-dashed-#{$name}:disabled {
+    opacity: 0.25;
+  }
+}
+
+.btn-secondary {
+  background: var(--k-color-light);
+  border-color: transparent;
+  color: var(--k-color);
+  border-width: 0;
+  @include no-hover-darkening;
+  @include no-hover-state(var(--k-color-light), transparent, var(--k-color));
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus,
+.btn-secondary.show {
+  filter: brightness(0.92);
+  background: var(--k-color-light);
+  border-color: transparent;
+  color: var(--k-color);
+  border-width: 0;
+}
+
+.btn-secondary:active {
+  filter: brightness(0.84);
+  background: var(--k-color-light);
+  border-color: transparent;
+  color: var(--k-color);
+  border-width: 0;
+}
+
+.btn-outline-secondary {
+  border: 1px solid var(--k-color-d-05-light);
+  color: var(--k-color-secondary);
+  @include no-hover-state(transparent, var(--k-color-d-05-light), var(--k-color-secondary));
+}
+
+.btn-transparent {
+  @include no-hover-state(transparent, null, var(--k-color-secondary));
+}
+
+.btn-outline-secondary:hover,
+.btn-outline-secondary:focus,
+.btn-dashed:hover,
+.btn-dashed:focus,
+.btn-transparent:hover,
+.btn-transparent:focus,
+.btn-transparent-primary:hover,
+.btn-transparent-primary:focus {
+  background: var(--k-navbar-item-hover-background);
+  color: var(--k-color-secondary);
+}
+
+.btn-outline-secondary:not(:disabled):not(.disabled):active,
+.btn-outline-secondary:not(:disabled):not(.disabled).active,
+.btn-transparent:not(:disabled):not(.disabled):active,
+.btn-transparent:not(:disabled):not(.disabled).active,
+.btn-dashed:not(:disabled):not(.disabled):active,
+.btn-dashed:not(:disabled):not(.disabled).active,
+.btn-transparent-primary:not(:disabled):not(.disabled):active {
+  background: var(--k-navbar-item-pressed-background);
+}
+
+.btn-secondary:not(:disabled):not(.disabled):active,
+.btn-secondary:not(:disabled):not(.disabled).active {
+  background: var(--k-color-d-10-light) linear-gradient(180deg, var(--k-color-d-10-light), var(--k-color-d-15-light)) repeat-x;
+  border-color: transparent;
+  color: var(--k-color);
+  border-width: 0;
+}
+
+.btn-transparent-primary.active {
+  color: var(--k-dropdown-item-active-color);
+  background-color: var(--k-dropdown-item-active-background);
+}
+
+.btn-secondary:focus-visible,
+.btn-check:checked + .btn-secondary:focus-visible,
+.btn-check:active + .btn-secondary:focus-visible,
+.btn-secondary:active:focus-visible,
+.btn-secondary.active:focus-visible,
+.show > .btn-secondary.dropdown-toggle:focus-visible,
+.btn-transparent:focus-visible,
+.btn-check:checked + .btn-secondary:focus,
+.btn-check:active + .btn-secondary:focus,
+.btn-secondary:active:focus,
+.btn-secondary.active:focus,
+.show > .btn-secondary.dropdown-toggle:focus {
+  box-shadow: none;
+}
+
+.js-focus-visible .btn.focus-visible,
+.btn:focus-visible {
+  outline: var(--k-focus-outline) !important;
+  outline-offset: var(--k-focus-outline-offset) !important;
+  box-shadow: none !important;
+  filter: none;
+  transition: outline-offset 0.05s ease-out;
+}
+
+.js-focus-visible .btn-transparent.focus-visible,
+.btn-transparent:focus-visible {
+  outline-offset: 0 !important;
+}
+
+.btn-transparent-light:hover,
+.btn-transparent-light:focus {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+.btn-transparent-light:active,
+.btn-transparent-light.active {
+  background: rgba(255, 255, 255, 0.4) !important;
+  border-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.btn-transparent-primary,
+.btn-transparent-primary:hover,
+.btn-transparent-primary:focus,
+.btn-transparent-primary:active {
+  color: var(--k-color-primary);
+}
+.btn-transparent-primary {
+  @include no-hover-state(transparent, null, var(--k-color-primary));
+}
+
+/* The quiet button in the info colour: an action that should read as one without the weight of primary */
+.btn-transparent-info {
+  color: var(--k-color-info);
+  @include no-hover-state(transparent, null, var(--k-color-info));
+}
+
+.btn-transparent-info:hover,
+.btn-transparent-info:focus {
+  color: var(--k-color-info);
+  background: var(--k-navbar-item-hover-background);
+}
+
+.btn-transparent-info:not(:disabled):not(.disabled):active {
+  color: var(--k-color-info);
+  background: var(--k-navbar-item-pressed-background);
+}
+
+.btn-transparent-info.active {
+  color: var(--k-color-d-10-info);
+  background-color: var(--k-color-t-10-info);
+}
+
+.btn-transparent-info:disabled {
+  color: var(--k-color-info);
+  opacity: 0.25;
+}

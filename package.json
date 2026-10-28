@@ -1,0 +1,29 @@
+{
+  "name": "kinabase-geocoder",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Internal tool: fills latitude and longitude into a Kinabase address export so records show on the map",
+  "scripts": {
+    "start": "vite --open",
+    "dev": "vite",
+    "build": "vite build",
+    "build:single": "SINGLE=1 vite build && mv release/index.html release/address-geocoder.html",
+    "preview": "vite preview",
+    "typecheck": "vue-tsc --noEmit"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.6",
+    "papaparse": "^5.5.2",
+    "vue": "^3.5.42"
+  },
+  "devDependencies": {
+    "@types/papaparse": "^5.3.15",
+    "@vitejs/plugin-vue": "^6.0.10",
+    "sass": "^1.97.1",
+    "typescript": "^5.6.2",
+    "vite": "^8.3.5",
+    "vite-plugin-singlefile": "^2.3.4",
+    "vue-tsc": "^3.0.0"
+  }
+}
