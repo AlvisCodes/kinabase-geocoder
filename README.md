@@ -1,5 +1,7 @@
 # Address Geocoder
 
+Live at **https://alviscodes.github.io/kinabase-geocoder/** (published from `main` by GitHub Actions).
+
 Internal tool. Takes a Kinabase CSV export that has an address (location) field, looks each address up with the HERE geocoding API, and gives back the same CSV with the `Latitude` and `Longitude` columns filled in. Re-import the file and the records show up on the map.
 
 ## Run it
